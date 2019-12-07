@@ -1,0 +1,174 @@
+<html>
+	<head>
+		<title>Front End Application</title>
+		<style>
+		     h1{
+					font-family:"Arial Black", Gadget, sans-serif;
+					color:red;
+					text-align: center;
+				}
+			body{
+					color:black;
+					background-color:lightgreen;
+					margin-left:20px;
+					margin-right:20px;
+				}
+			table{
+					width:95%;
+					border-collapse:collapse;
+					table-layout:fixed;
+				}
+			td
+				{
+					border: rgba(224, 119, 70, 1) 2px solid;
+					word-wrap:break-word;
+				}
+			table#close{
+				
+					table-layout:default;
+					border-collapse:seperate;
+					border-spacing: 5px 5px;
+					border:none;
+					vertical-align:top;
+				}
+			table.none
+				{
+					border:none;
+					vertical-align:top;
+				}
+			table.none td
+				{
+					border: none;
+				}
+			tr.row td{
+					text-decoration:italic;
+				}
+			th.status{
+					width:5%;
+				}
+			th.name{
+					width:20%;
+				}
+			th.des{
+					width:40%;
+					padding:5px 5px 5px 5px;
+				}
+			th.date{
+					width:8%;
+				}
+			th.pr{
+					width:7%;
+				}
+			th.func1{
+					width:6%;
+				}
+			th.func2{
+					width:5%;
+				}
+			input[type=submit] {
+					width: 20em;  height: 2em;
+				}
+			ul {
+					list-style-type: none;
+					margin: 0;
+					padding: 0;
+					overflow: hidden;
+					background-color: #333;
+				}
+			li {
+					float: left;
+				}
+			li a {
+					display: block;
+					color: white;
+					text-align: center;
+					padding: 14px 16px;
+					text-decoration: none;
+				}
+			a.active {
+					background-color: #4CAF50;
+				}
+				/* Change the link color to #111 (black) on hover */
+			li a:hover {
+					background-color:royalblue;
+				}
+    
+		</style>
+		
+	</head>
+<body>
+	<h1>Welcome to this page</h1>
+	<hr>
+	{% if students[0] %}
+	<div span="right">
+	<form action="/search"	method="GET" >
+		<table class="none" id="close">
+		<tr>
+		<td></td><td></td>
+		<td><b>Search a Student by a particular field:</b></td>
+		<td><select name="refer" >
+			<option value="student_id">Student id</option>
+			<option value="student_name">Student Name</option>
+			<option value="student_phone">Student Phone</option>
+			<option value="student_address">Student Address </option>
+			<option value="student_email">Student Email</option>
+			<option value="courses_taken">Courses Taken</option>
+		</select></td>
+		<td><input type="text" name="key" placeholder="Search student" size="15" /></td>
+		<td><button type="submit">Search</button></td>
+		</tr>
+		</table>
+	</form>
+	</div>
+	<b>Student Collection:</b>
+	<table>
+	    <tr id="row">
+	    	
+	    	<th class="student_id">Student id</th>
+	    	<th class="student_name">Student Name</th>
+	    	<th class="student_phone">Student Phone</th>
+			<th class="student_address">student_address</th>
+			<th class="student_email">Student email</th>
+			<th class="courses_taken">Courses Taken</th>
+		<th class="func1">Remove</th>
+		<th class="func2">Modify</th>
+	    </tr>
+	{% for stu in students  %}
+		<tr class="datas">
+			
+			<td class="student_id">{{ stu["student_id"] }}</td>
+			<td class="student_name">{{ stu["student_name"] }}</td>
+			<td class="student_phone">{{ stu["student_phone"] }}</td>
+			<td class="student_address">{{ stu["student_address"] }}</td>
+			<td class="student_email">{{ stu["student_email"] }}</td>
+			<td class="courses_taken">{{ stu["courses_taken"] }}</td>			
+            <td class="func1"><a href="./remove?_id={{ stu['_id'] }}"><button type="submit">DELETE</button></a></td>
+			<td class="func1"><a href="./update?_id={{ stu['_id'] }}"><button type="submit">UPDATE</button></a></td>
+
+		</tr>
+	{% endfor %}
+	</table>
+	{% else %}
+		<h4>No document in Student Collection !!</h4>
+	{% endif %}
+	<hr/>
+	<form action="/insert" method="POST">
+	<table class="none">
+		<tr>
+			<td><b><label>Add a new Student into a collection: </label></b></td>
+		</tr>
+		<tr>
+		<td><input type="text" name="student_id" placeholder="student id" /></td>
+		<td><input  type="text" name="student_name"  placeholder="Enter Student Name"></td>
+		<td><input type="text" name="student_phone" placeholder="Enter Phone number" /></td>
+		<td><input type="text" name="student_address" placeholder="Enter address" /></td>
+		<td><input type="text" name="student_email" placeholder="Enter email address" /></td>
+		<td><input type="text" name="courses_taken" placeholder="Enter Courses Taken" /></td>
+		<td><button type="submit">Add a New Document</button></td>
+		</tr>
+	</table>
+	</form>
+	
+	
+</body>
+</html>
